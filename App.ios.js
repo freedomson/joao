@@ -5,47 +5,51 @@ import {
     Text,
     View,
     Button
-} from 'react-native';
+} from 'react-native'; 
 
-import ApiAi from "react-native-dialogflow"
+import Dialogflow, { Dialogflow_V2 } from "react-native-dialogflow"
 
 export default class App extends Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             result: "",
             buttonText: "Start Listening",
             listening: false
         };
 
-        console.log(ApiAi);
+        console.log('\n\n*******-----------******** \n\n',Dialogflow.LANG_PORTUGUESE);
 
-        ApiAi.setConfiguration(
-            "INSERT_YOUR_CLENT_ACCESS_TOKEN_HERE", ApiAi.LANG_GERMAN
+        Dialogflow_V2.setConfiguration(
+            "0f8ecacaf23449b1abd9dc80a884069a", Dialogflow.LANG_PORTUGUESE
         );
-    }
+    } 
 
-
-    render() {
+    
+    render() { 
+        Dialogflow_V2.requestEvent("WELCOME", null, r => console.log(r), e => console.log(e));
         return (
             <View style={styles.container}>
 
-                <View style={{ flex: 4 }}>
+                <View    style={{ flex: 4 }}>
                     <Text>{"Result: " + this.state.result}</Text>
                 </View>
                 <View style={{ flex: 1, padding: 10 }}>
                     <Button title={this.state.buttonText} onPress={() => {
 
                         if (this.state.listening) {
-                            ApiAi.finishListening();
+                            Dialogflow_V2.finishListening();
                             this.setState({ buttonText: "Start Listening", listening: false })
                         } else {
-                            ApiAi.startListening(result => {
+                            Dialogflow_V2.startListening(
+                              result => {
                                 this.setState({ result: JSON.stringify(result) });
                             }, error => {
                                 this.setState({ result: JSON.stringify(error) });
-                            });
+                            },
+                            ()=>{console.log("\n\n***updating\n\n")}
+                            );
                             this.setState({ buttonText: "Stop Listening", listening: true })
                         }
                     }} />
