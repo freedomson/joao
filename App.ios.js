@@ -8,7 +8,7 @@ import {
 } from 'react-native'; 
 
 import Dialogflow, { Dialogflow_V2 } from "react-native-dialogflow"
-
+import DialogBridge from "./dialog/bridge.js"
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -19,16 +19,16 @@ export default class App extends Component {
             listening: false
         };
 
-        console.log('\n\n*******-----------******** \n\n',Dialogflow.LANG_PORTUGUESE);
+        // console.log('\n\n\n\n*******-----------******** \n\n',Dialogflow.LANG_PORTUGUESE),"\n\n\n\n";
+        // ./gcloud auth activate-service-account --key-file=/Users/freedomson/Downloads/newagent-293f5-ac379c9ab40c.json 
+        // ./gcloud auth print-access-token
 
-        Dialogflow_V2.setConfiguration(
-            "0f8ecacaf23449b1abd9dc80a884069a", Dialogflow.LANG_PORTUGUESE
-        );
-    } 
+        const dbridge = new DialogBridge()
+        dbridge.init(Dialogflow_V2)
 
+    }
     
     render() { 
-        Dialogflow_V2.requestEvent("WELCOME", null, r => console.log(r), e => console.log(e));
         return (
             <View style={styles.container}>
 
@@ -44,11 +44,11 @@ export default class App extends Component {
                         } else {
                             Dialogflow_V2.startListening(
                               result => {
-                                this.setState({ result: JSON.stringify(result) });
+                                this.setState({ date: new Date(),result: JSON.stringify(result) });
                             }, error => {
-                                this.setState({ result: JSON.stringify(error) });
+                                this.setState({ rdate: new Date(),result: JSON.stringify(error) });
                             },
-                            ()=>{console.log("\n\n***updating\n\n")}
+                            (STOUT)=>{console.log("\n\n***updating\n\n",STOUT)}
                             );
                             this.setState({ buttonText: "Stop Listening", listening: true })
                         }
