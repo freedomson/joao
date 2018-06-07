@@ -1,4 +1,5 @@
 // Constructor
+
 function Bridge(bar) {
     // always initialize all instance properties
     this.df = null
@@ -15,13 +16,16 @@ function Bridge(bar) {
   };
 
   Bridge.prototype.setConfiguration = function(token){
-
+    /* console.log(      
+      token,
+      this.df.LANG_PORTUGUESE,
+      this.serviceAccount) */
     this.df.setConfiguration(
       token,
       this.df.LANG_PORTUGUESE,
       this.serviceAccount
       );
-  }; 
+  };   
 
   Bridge.prototype.getToken = function(){
     fetch(this.url, {
@@ -34,7 +38,7 @@ function Bridge(bar) {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-          //console.log('***** TOKEN RESPONSE *****',responseJson.token)
+          // console.log('***** TOKEN RESPONSE *****',responseJson.token)
           this.setConfiguration(responseJson.token)
     })
     .catch((error) => {

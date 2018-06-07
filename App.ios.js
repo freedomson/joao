@@ -25,7 +25,7 @@ export default class App extends Component {
 
         const dbridge = new DialogBridge()
         dbridge.init(Dialogflow_V2)
-
+        
     }
     
     render() { 
