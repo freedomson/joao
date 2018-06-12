@@ -12,6 +12,7 @@
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-native-dialogflow": "^3.0.3",
+    "react-native-fit-image": "^1.5.4",
     "react-native-speech-to-text-ios": "^1.0.4",
     "react-native-tts": "^1.5.0"
   },
