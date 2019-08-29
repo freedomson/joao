@@ -34,6 +34,10 @@ export default class App extends Component {
 
     componentDidMount(){
     }
+
+    updateTranslation(r){
+        this.setState({result:r})
+    }
     
     render() { 
 
@@ -65,6 +69,7 @@ export default class App extends Component {
                 </FitImage>
 
                         <Button title={this.state.buttonTextHelp} onPress={() => {
+                            this.pliik.intro(Dialogflow_V2,this.updateTranslation.bind(this))
                             this.pliik.help(this.state.assistantname)
                         }}/>
             </View>

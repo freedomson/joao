@@ -28,11 +28,13 @@ function Bridge(bar) {
   };   
 
   Bridge.prototype.getToken = function(){
+    
     console.log(     
       this.url, 
       this.authenticationHeaderToken,
       this.dialogflow.LANG_PORTUGUESE,
       this.serviceAccount)
+
     fetch(this.url, {
       method: 'GET',
       headers: {
@@ -41,13 +43,16 @@ function Bridge(bar) {
         'Content-Type': 'application/json',
       }
     })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("response.json",response);
+      return JSON.parse(response)
+    })
     .then((responseJson) => {
-          console.log('***** TOKEN RESPONSE *****'/*,responseJson.token*/)
-          this.setConfiguration(responseJson.token)
+          console.log('***** TOKEN RESPONSE *****',responseJson.token)
+          this.setConfiguration(responseJson)
     })
     .catch((error) => { 
-      console.error('DASSSSSSS',responseJson.token);  
+      console.error('DASSSSSSS',error);  
       this.setConfiguration("openshift tokenserver outage") 
     });
   }
