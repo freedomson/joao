@@ -19,18 +19,11 @@ export default class App extends Component {
       audioLevel: 0,
     };
 
-
-    Dialogflow.setConfiguration(
-      "3080c09bf2f04ecdb8f82225741070fb", Dialogflow.LANG_PORTUGUESE
-    );
-
     Dialogflow_V2.setConfiguration(
       "3080c09bf2f04ecdb8f82225741070fb",
       Dialogflow_V2.LANG_PORTUGUESE,
       'testv2-3b5ca'
     );
-
-
 
     const contexts = [{
       "name": "deals",
@@ -108,7 +101,7 @@ export default class App extends Component {
                   });
  }
   render() {
-    Dialogflow.requestEvent("HORAS", null, r => console.log(r), e => console.log(e));
+    Dialogflow_V2.requestEvent("HORAS", null, r => console.log(r), e => console.log(e));
 /*
     Dialogflow_V2.requestEvent("WELCOME", null,
             r => {
@@ -134,23 +127,23 @@ export default class App extends Component {
 
 
             // V1
-            Dialogflow.onListeningStarted(() => {
+            Dialogflow_V2.onListeningStarted(() => {
               this.setState({ listeningState: "started" });
             });
 
-            Dialogflow.onListeningCanceled(() => {
+            Dialogflow_V2.onListeningCanceled(() => {
               this.setState({ listeningState: "canceled" });
             });
 
-            Dialogflow.onListeningFinished(() => {
+            Dialogflow_V2.onListeningFinished(() => {
               this.setState({ listeningState: "finished" });
             });
 
-            Dialogflow.onAudioLevel(level => {
+            Dialogflow_V2.onAudioLevel(level => {
               this.setState({ audioLevel: level });
             });
 
-            Dialogflow.startListening(result => {
+            Dialogflow_V2.startListening(result => {
               console.log(result);
               this.setState({ result: JSON.stringify(result) });
             }, error => {
